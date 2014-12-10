@@ -23,6 +23,9 @@
 // global variables go here
 int xcoord = 0;
 int ycoord = 7;
+boolean LevelOne = false;
+boolean LevelTwo = false;
+boolean LevelThree = false;
 
 /*
 
@@ -35,22 +38,8 @@ void setup()                    // run once, when the sketch starts
   
 }
 
-void SongOne()
-{
-  DrawPx (3,7,Red); DisplaySlate(); delay(250); 
-  Tone_Start(ToneC5, 100); delay(125);
-  DrawPx (7,3,Green); DisplaySlate(); delay(250);
-  Tone_Start(ToneE5, 100); delay(125);
-  DrawPx (3,0,Blue); DisplaySlate(); delay(250);
-  Tone_Start(ToneG5, 100); delay(125);
-  DrawPx (0,3,Violet); DisplaySlate(); delay(500);
-  Tone_Start(ToneF5, 100); delay(125);
-  ClearSlate(); 
-}
-
 void loop()  // run over and over again
 {
-  // SongOne();
   shift();
   DrawPx(xcoord,ycoord,Blue); // draw dot
   DisplaySlate();
@@ -100,5 +89,35 @@ void shift() // taken from Maze_Game
       Tone_Start (ToneC3,100); // play error sound when go off screen  
   } 
 
-  
+  // Level One
+  if (LevelOne == false)
+  {
+    
+    if (xcoord = PointArray[0].x && ycoord = PointArray[0].y)
+    {
+      if (xcoord = PointArray[1].x && ycoord = PointArray[1].y)
+      {
+        if (xcoord = PointArray[2].x && ycoord = PointArray[2].y)
+        {
+          if (xcoord = PointArray[3].x && ycoord = PointArray[3].y)
+          {
+            LevelTwo = true;
+          }
+        }
+      }
+    }
+  }
+  else
+  {
+    // Level One Content
+    DrawPx (3,7,Red); DisplaySlate(); delay(250); 
+    Tone_Start(ToneC5, 100); delay(125);
+    DrawPx (7,3,Green); DisplaySlate(); delay(250);
+    Tone_Start(ToneE5, 100); delay(125);
+    DrawPx (3,0,Blue); DisplaySlate(); delay(250);
+    Tone_Start(ToneG5, 100); delay(125);
+    DrawPx (0,3,Violet); DisplaySlate(); delay(500);
+    Tone_Start(ToneF5, 100); delay(125);
+    ClearSlate();   
+  }  
 }
