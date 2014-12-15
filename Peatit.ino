@@ -65,6 +65,18 @@ IDEAS: Make the dots like a diamond so the user is more challenged.
 1. Show dots pattern
 2. Hide dots pattern
 3. Play sound if user goes in correct order and hits dots
+
+REVISION: The game isn't fun or very possible if the user has to memorize the patterns on this screen.
+It's better if they can get a little help. So, here's the new alternative gameplay method:
+
+1. Show level one: three different colored dots, each playing a sound on appearing. *NON-LOOPING ANIMATION*
+2. The dots stay on screen, but the user must remember in what order they appeared
+  i.e. First: Red (3,4), Second: Blue(4,4), Third: Yellow(5,4)
+3. Player must move cursor, in this example, first to red, then to blue, then to yellow.
+  *Computer must recognize which was done first*
+      if Touch First Dot, if Touch Second Dot, if Touch Third Dot, then play WinMusic
+      if Touch Third Dot, then Touch Second Dot, then play FailMusic
+
 */
 
 void setup()                    // run once, when the sketch starts
