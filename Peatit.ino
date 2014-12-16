@@ -38,6 +38,8 @@ Point p4 = {6, 4, false};
 
 Point PointArray[64] = {p1,p2,p3,p4};
 
+int marker = 4;
+
 /*
 
 IDEAS: Make the dots like a diamond so the user is more challenged.
@@ -56,6 +58,9 @@ It's better if they can get a little help. So, here's the new alternative gamepl
   *Computer must recognize which was done first*
       if Touch First Dot, if Touch Second Dot, if Touch Third Dot, then play WinMusic
       if Touch Third Dot, then Touch Second Dot, then play FailMusic
+      
+1. Go on Dot1, make Dot 1 visited true and stay true when off dot
+2. Go on Dot2, make Dot 2 visited true and stay true when off dot
 
 */
 
@@ -98,5 +103,13 @@ void shift() // taken from Maze_Game
     if (ycoord > 0)
       ycoord = ycoord - 1;
   } 
-
+  
+  if (xcoord == PointArray[1].x)
+  {
+    if (ycoord == PointArray[1].y)
+    {
+      PointArray[1].visited = true;
+      Tone_Start(ToneE5, 100); delay(125);  
+    }
+  } 
 }
