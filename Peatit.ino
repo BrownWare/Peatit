@@ -71,6 +71,10 @@ void setup()                    // run once, when the sketch starts
 
 void loop()  // run over and over again
 {
+  DrawPx(p1.x,p1.y,Yellow);
+  DrawPx(p2.x,p2.y,Green);
+  DrawPx(p3.x,p3.y,Red);
+  DrawPx(p4.x,p4.y,Violet);
   shift();
   DrawPx(xcoord,ycoord,Blue); // draw cursor dot
   DisplaySlate();
@@ -104,12 +108,25 @@ void shift() // taken from Maze_Game
       ycoord = ycoord - 1;
   } 
   
-  if (xcoord == PointArray[1].x)
+  if (xcoord == PointArray[1].x) 
   {
-    if (ycoord == PointArray[1].y)
+    if (ycoord == PointArray[1].y) // checks if cursor hit first dot
     {
-      PointArray[1].visited = true;
-      Tone_Start(ToneE5, 100); delay(125);  
+      PointArray[1].visited = true; // must be single equal sign
     }
   } 
+  
+  if (PointArray[1].visited == true) // checks first dot visited, MUST BE DOUBLE EQUAL SIGN
+  {
+    if (xcoord == PointArray[2].x) // checks if cursor hit second dot
+    {
+      if (ycoord == PointArray[2].y) 
+      {
+        PointArray[2].visited = true; // must be single equal sign
+        Tone_Start(ToneE5, 100); delay(125); // confirms dots have been visited in order
+      }
+    }
+  } 
+  else
+  PointArray[1].visited = false;
 }
