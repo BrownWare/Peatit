@@ -67,16 +67,24 @@ It's better if they can get a little help. So, here's the new alternative gamepl
 void setup()                    // run once, when the sketch starts
 {
   MeggyJrSimpleSetup();      // Required code 
+  Serial.begin(9600);
+  
 }
 
 void loop()  // run over and over again
 {
-  DrawPx(p1.x,p1.y,Yellow);
-  DrawPx(p2.x,p2.y,Green);
-  DrawPx(p3.x,p3.y,Red);
-  DrawPx(p4.x,p4.y,Violet);
+  Serial.print("x is");  // things in quotes show up literally
+  Serial.println(xcoord);  // println is print line
+  Serial.print("y is ");
+  Serial.println(ycoord);
+  Serial.println();
+  
+  DrawPx(4,3,White); // shows player origin dot
+  
   shift();
+  
   DrawPx(xcoord,ycoord,Blue); // draw cursor dot
+  
   DisplaySlate();
   delay(150);
   ClearSlate(); 
@@ -108,6 +116,17 @@ void shift() // taken from Maze_Game
       ycoord = ycoord - 1;
   } 
   
+  if (xcoord == 4)
+  {
+    if (ycoord == 3)
+    {
+      DrawPx(p1.x,p1.y,Yellow);
+      DrawPx(p2.x,p2.y,Green);
+      DrawPx(p3.x,p3.y,Red);
+      DrawPx(p4.x,p4.y,Violet);
+    }
+  }
+  
   if (xcoord == PointArray[1].x) 
   {
     if (ycoord == PointArray[1].y) // checks if cursor hit first dot
@@ -123,7 +142,7 @@ void shift() // taken from Maze_Game
       if (ycoord == PointArray[2].y) 
       {
         PointArray[2].visited = true; // must be single equal sign
-        Tone_Start(ToneE5, 100); delay(125); // confirms dots have been visited in order
+        Tone_Start(ToneC6, 100); // confirms dots have been visited in order
       }
     }
   } 
