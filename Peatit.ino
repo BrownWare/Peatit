@@ -36,7 +36,9 @@ Point p2 = {4, 4, false};
 Point p3 = {5, 4, false};
 Point p4 = {6, 4, false};
 
-Point PointArray[64] = {p1,p2,p3,p4};
+Point PointArray[64] = {p1, p2, p3, p4};
+
+// Call p1 [0], p2 [1], p3 [2], etc
 
 int marker = 4;
 
@@ -62,6 +64,9 @@ It's better if they can get a little help. So, here's the new alternative gamepl
 1. Go on Dot1, make Dot 1 visited true and stay true when off dot
 2. Go on Dot2, make Dot 2 visited true and stay true when off dot
 
+1. Show pattern when sitting on origin
+2. Hit the dots in the right order
+
 */
 
 void setup()                    // run once, when the sketch starts
@@ -73,15 +78,16 @@ void setup()                    // run once, when the sketch starts
 
 void loop()  // run over and over again
 {
-  Serial.print("x is");  // things in quotes show up literally
+  Serial.print("xcoord is ");  // things in quotes show up literally
   Serial.println(xcoord);  // println is print line
-  Serial.print("y is ");
+  Serial.print("ycoord is ");
   Serial.println(ycoord);
   Serial.println();
   
   DrawPx(4,3,White); // shows player origin dot
   
-  shift();
+  controls();
+  core();
   
   DrawPx(xcoord,ycoord,Blue); // draw cursor dot
   
@@ -91,7 +97,7 @@ void loop()  // run over and over again
 }
 
 
-void shift() // taken from Maze_Game
+void controls() // taken from Maze_Game
 {  
   CheckButtonsDown();
   if (Button_Right)
@@ -115,37 +121,43 @@ void shift() // taken from Maze_Game
     if (ycoord > 0)
       ycoord = ycoord - 1;
   } 
-  
+}
+
+
+void core()
+{
   if (xcoord == 4)
   {
     if (ycoord == 3)
     {
-      DrawPx(p1.x,p1.y,Yellow);
-      DrawPx(p2.x,p2.y,Green);
-      DrawPx(p3.x,p3.y,Red);
-      DrawPx(p4.x,p4.y,Violet);
+    DrawPx(p1.x,p1.y,Yellow);
+    DrawPx(p2.x,p2.y,Green);
+    DrawPx(p3.x,p3.y,Red);
+    DrawPx(p4.x,p4.y,Violet);
     }
   }
-  
-  if (xcoord == PointArray[1].x) 
+    
+  if (xcoord == PointArray[0].x) // [0].x is first point in array
   {
-    if (ycoord == PointArray[1].y) // checks if cursor hit first dot
+    if (ycoord == PointArray[0].y) // checks if cursor hit first dot
     {
-      PointArray[1].visited = true; // must be single equal sign
+      PointArray[0].visited = true; // must be single equal sign
     }
   } 
-  
-  if (PointArray[1].visited == true) // checks first dot visited, MUST BE DOUBLE EQUAL SIGN
+    
+  if (PointArray[0].visited == true) // checks first dot visited, MUST BE DOUBLE EQUAL SIGN
   {
-    if (xcoord == PointArray[2].x) // checks if cursor hit second dot
+    if (xcoord == PointArray[1].x) // checks if cursor hit second dot
     {
-      if (ycoord == PointArray[2].y) 
+      if (ycoord == PointArray[1].y)
       {
-        PointArray[2].visited = true; // must be single equal sign
+        PointArray[1].visited = true; // must be single equal sign
         Tone_Start(ToneC6, 100); // confirms dots have been visited in order
       }
     }
   } 
   else
-  PointArray[1].visited = false;
+  {
+    PointArray[0].visited = false;
+  }
 }
