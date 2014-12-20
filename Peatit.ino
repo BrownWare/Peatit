@@ -11,7 +11,7 @@
                                    
 
  
-  Repeat what you see and hear.
+  Repeat stuff.
 
 */
    
@@ -121,25 +121,41 @@ void controls() // taken from Maze_Game
     if (ycoord > 0)
       ycoord = ycoord - 1;
   } 
-}
 
+}
 
 void core()
 {
   if (xcoord == 4)
   {
-    if (ycoord == 3)
-    {
-    DrawPx(p1.x,p1.y,Yellow);
-    DrawPx(p2.x,p2.y,Green);
-    DrawPx(p3.x,p3.y,Red);
-    DrawPx(p4.x,p4.y,Violet);
+    if (ycoord == 3) // show dots and order and sound if on origin dot
+    {  
+      DrawPx(p1.x,p1.y,Yellow);
+      DisplaySlate();
+      Tone_Start(ToneC5,500);
+      delay(750);
+      // allow interruption
+      DrawPx(p2.x,p2.y,Green);
+      DisplaySlate();
+      Tone_Start(ToneD5,500);
+      delay(750);
+      // allow interruption
+      DrawPx(p3.x,p3.y,Red);
+      DisplaySlate();
+      Tone_Start(ToneE5,500);
+      delay(750);
+      // allow interruption
+      DrawPx(p4.x,p4.y,Violet);
+      DisplaySlate();
+      Tone_Start(ToneF5,500);
+      delay(2000);
+      // allow interruption
     }
   }
     
-  if (xcoord == PointArray[0].x) // [0].x is first point in array
+  if (xcoord == PointArray[0].x) // checks if cursor hit first dot
   {
-    if (ycoord == PointArray[0].y) // checks if cursor hit first dot
+    if (ycoord == PointArray[0].y) // [0].x is first point in array
     {
       PointArray[0].visited = true; // must be single equal sign
     }
@@ -151,7 +167,7 @@ void core()
     {
       if (ycoord == PointArray[1].y)
       {
-        PointArray[1].visited = true; // must be single equal sign
+        PointArray[1].visited = true; // second dot hit. must be single equal sign
         Tone_Start(ToneC6, 100); // confirms dots have been visited in order
       }
     }
@@ -159,5 +175,16 @@ void core()
   else
   {
     PointArray[0].visited = false;
+    
+    if (xcoord == PointArray[1].x) // second dot hit, first dot not visited
+    {
+      if (ycoord == PointArray[1].y)
+      {
+        Tone_Start(ToneC3, 100); // error sound
+        xcoord = 4; ycoord = 3; // return to origin if hit dots in wrong order
+        delay(150);
+      }
+    }  
+    
   }
 }
