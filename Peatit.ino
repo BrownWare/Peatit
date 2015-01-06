@@ -126,7 +126,7 @@ void controls() // taken from Maze_Game
 
 void core()
 {
-  if (xcoord == 4)
+  /*if (xcoord == 4)
   {
     if (ycoord == 3) // show dots and order and sound if on origin dot
     {  
@@ -151,7 +151,7 @@ void core()
       delay(2000);
       // allow interruption
     }
-  }
+  }*/
     
   if (xcoord == PointArray[0].x) // checks if cursor hit first dot
   {
