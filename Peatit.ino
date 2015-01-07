@@ -126,38 +126,24 @@ void controls() // taken from Maze_Game
 
 void core()
 {
-  /*if (xcoord == 4)
+if (xcoord == 4)
   {
-    if (ycoord == 3) // show dots and order and sound if on origin dot
+    if (ycoord == 3) // show dots if on origin dot
     {  
       DrawPx(p1.x,p1.y,Yellow);
-      DisplaySlate();
-      Tone_Start(ToneC5,500);
-      delay(750);
-      // allow interruption
       DrawPx(p2.x,p2.y,Green);
-      DisplaySlate();
-      Tone_Start(ToneD5,500);
-      delay(750);
-      // allow interruption
       DrawPx(p3.x,p3.y,Red);
-      DisplaySlate();
-      Tone_Start(ToneE5,500);
-      delay(750);
-      // allow interruption
       DrawPx(p4.x,p4.y,Violet);
-      DisplaySlate();
-      Tone_Start(ToneF5,500);
-      delay(2000);
-      // allow interruption
     }
-  }*/
+  }
     
   if (xcoord == PointArray[0].x) // checks if cursor hit first dot
   {
     if (ycoord == PointArray[0].y) // [0].x is first point in array
     {
       PointArray[0].visited = true; // must be single equal sign
+      Tone_Start(ToneC5, 150); // first dot in order hit confirmed
+      // sound is 150 so same as delay so no repeat sounds
     }
   } 
     
@@ -168,7 +154,7 @@ void core()
       if (ycoord == PointArray[1].y)
       {
         PointArray[1].visited = true; // second dot hit. must be single equal sign
-        Tone_Start(ToneC6, 100); // confirms dots have been visited in order
+        Tone_Start(ToneD5, 150); // confirms dots have been visited in order
       }
     }
   } 
@@ -184,7 +170,60 @@ void core()
         xcoord = 4; ycoord = 3; // return to origin if hit dots in wrong order
         delay(150);
       }
-    }  
-    
+    }   
   }
+  
+  if (PointArray[1].visited == true) // checks second dot visited
+        {
+          if (xcoord == PointArray[2].x)
+          {
+            if (ycoord == PointArray[2].y)
+            {
+              PointArray[2].visited = true; // second dot hit. must be single equal sign
+              Tone_Start(ToneE5, 150); // confirms dots have been visited in order
+            } 
+          }
+        }  
+        
+  else
+  {
+    PointArray[1].visited = false;
+  
+    if (xcoord == PointArray[2].x) // second dot hit, first dot not visited
+    {
+      if (ycoord == PointArray[2].y)
+      {
+      Tone_Start(ToneC3, 150); // error sound
+       xcoord = 4; ycoord = 3; // return to origin if hit dots in wrong order
+      delay(150);
+      }
+    }
+  }
+  
+  if (PointArray[2].visited == true) // checks third dot visited
+        {
+          if (xcoord == PointArray[3].x)
+          {
+            if (ycoord == PointArray[3].y)
+            {
+              PointArray[3].visited = true; // third dot hit. must be single equal sign
+              Tone_Start(ToneF5, 150); // confirms dots have been visited in order
+            }
+          }
+        }  
+        
+  else
+  {
+    PointArray[2].visited = false;
+  
+    if (xcoord == PointArray[3].x) // fourth dot hit, first dot not visited
+    {
+      if (ycoord == PointArray[3].y)
+      {
+      Tone_Start(ToneC3, 100); // error sound
+       xcoord = 4; ycoord = 3; // return to origin if hit dots in wrong order
+      delay(150);
+      }
+    }
+  }  
 }
