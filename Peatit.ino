@@ -24,6 +24,11 @@
 int xcoord = 4;
 int ycoord = 3; 
 
+int p1_x = random(8);  int p1_y = random(8);
+int p2_x = random(6);  int p2_y = random(8);
+int p3_x = random(4);  int p3_y = random(8);
+int p4_x = random(2);  int p4_y = random(8);
+
 struct Point
 {
   int x;
@@ -31,16 +36,14 @@ struct Point
   boolean visited;
 };
 
-Point p1 = {3, 4, false};
-Point p2 = {4, 4, false};
-Point p3 = {5, 4, false};
-Point p4 = {6, 4, false};
+Point p1 = {p1_x, p1_y, false};
+Point p2 = {p2_x, p2_y, false};
+Point p3 = {p3_x, p3_y, false};
+Point p4 = {p4_x, p4_y, false};
 
 Point PointArray[64] = {p1, p2, p3, p4};
 
 // Call p1 [0], p2 [1], p3 [2], etc
-
-int marker = 4;
 
 /*
 
@@ -66,6 +69,12 @@ It's better if they can get a little help. So, here's the new alternative gamepl
 
 1. Show pattern when sitting on origin
 2. Hit the dots in the right order
+
+PSEUDO CODE Jan. 2015
+1. Draw four dots in 4 random locations
+2. Visit dots in the correct order
+3. After visiting the 4th and final dot, clear the old dots
+4. Draw four dots in 4 random locations, different from the previous locations
 
 */
 
@@ -201,16 +210,20 @@ if (xcoord == 4)
   }
   
   if (PointArray[2].visited == true) // checks third dot visited
-        {
-          if (xcoord == PointArray[3].x)
-          {
-            if (ycoord == PointArray[3].y)
-            {
-              PointArray[3].visited = true; // third dot hit. must be single equal sign
-              Tone_Start(ToneF5, 150); // confirms dots have been visited in order
-            }
-          }
-        }  
+  {
+    if (xcoord == PointArray[3].x) 
+    {
+      if (ycoord == PointArray[3].y) // if on fourth dot
+      {
+        PointArray[3].visited = true; // third dot hit. must be single equal sign
+        Tone_Start(ToneF5, 150); // confirms dots have been visited in order
+         p1_x = random(8);  p1_y = random(8);
+         p2_x = random(6);  p2_y = random(8);
+         p3_x = random(4);  p3_y = random(8);
+         p4_x = random(2);  p4_y = random(8);
+      }
+    }
+  }  
         
   else
   {
@@ -225,5 +238,6 @@ if (xcoord == 4)
       delay(150);
       }
     }
-  }  
+  } 
+  
 }
