@@ -139,10 +139,10 @@ if (xcoord == 4)
   {
     if (ycoord == 3) // show dots if on origin dot
     {  
-      DrawPx(p1.x,p1.y,Yellow);
-      DrawPx(p2.x,p2.y,Green);
-      DrawPx(p3.x,p3.y,Red);
-      DrawPx(p4.x,p4.y,Violet);
+      DrawPx(PointArray[0].x,PointArray[0].y,Yellow);
+      DrawPx(PointArray[1].x,PointArray[1].y,Green);
+      DrawPx(PointArray[2].x,PointArray[2].y,Red);
+      DrawPx(PointArray[3].x,PointArray[3].y,Violet);
     }
   }
     
@@ -203,7 +203,7 @@ if (xcoord == 4)
       if (ycoord == PointArray[2].y)
       {
       Tone_Start(ToneC3, 150); // error sound
-       xcoord = 4; ycoord = 3; // return to origin if hit dots in wrong order
+      xcoord = 4; ycoord = 3; // return to origin if hit dots in wrong order
       delay(150);
       }
     }
@@ -216,11 +216,21 @@ if (xcoord == 4)
       if (ycoord == PointArray[3].y) // if on fourth dot
       {
         PointArray[3].visited = true; // third dot hit. must be single equal sign
-        Tone_Start(ToneF5, 150); // confirms dots have been visited in order
-         p1_x = random(8);  p1_y = random(8);
-         p2_x = random(6);  p2_y = random(8);
-         p3_x = random(4);  p3_y = random(8);
-         p4_x = random(2);  p4_y = random(8);
+        Tone_Start(ToneF5, 200); // confirms all dots have been visited in order
+        delay(250);
+        PointArray[0].x = random(8); PointArray[0].y = random(8);
+        PointArray[0].visited = false; // make all dots unvisited for new level
+        PointArray[1].x = random(8); PointArray[1].y = random(8);
+        PointArray[1].visited = false;
+        PointArray[2].x = random(8); PointArray[2].y = random(8);
+        PointArray[2].visited = false;
+        PointArray[3].x = random(8); PointArray[3].y = random(8);
+        PointArray[3].visited = false;
+        xcoord = 4; ycoord = 3; // return to origin if hit dots in wrong order
+        Tone_Start(ToneG5, 200); delay(250); // success music
+        Tone_Start(ToneA5, 125); delay(150);
+        Tone_Start(ToneB5, 125); delay(150);
+        Tone_Start(ToneC6, 125); 
       }
     }
   }  
@@ -234,7 +244,7 @@ if (xcoord == 4)
       if (ycoord == PointArray[3].y)
       {
       Tone_Start(ToneC3, 100); // error sound
-       xcoord = 4; ycoord = 3; // return to origin if hit dots in wrong order
+      xcoord = 4; ycoord = 3; // return to origin if hit dots in wrong order
       delay(150);
       }
     }
