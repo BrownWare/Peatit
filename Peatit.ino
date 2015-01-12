@@ -11,7 +11,7 @@
                                    
 
  
-  Repeat stuff.
+  Hit dots in correct order
 
 */
    
@@ -23,8 +23,10 @@
 // global variables go here
 int xcoord = 4;
 int ycoord = 3; 
+boolean EasyMode = false;
+boolean HardMode = true; // "hard" mode is default
 
-int p1_x = random(8);  int p1_y = random(8);
+int p1_x = random(8);  int p1_y = random(8); // dots
 int p2_x = random(6);  int p2_y = random(8);
 int p3_x = random(4);  int p3_y = random(8);
 int p4_x = random(2);  int p4_y = random(8);
@@ -47,11 +49,9 @@ Point PointArray[64] = {p1, p2, p3, p4};
 
 /*
 
-IDEAS: Make the dots like a diamond so the user is more challenged.
+OBJECTIVE: Hit dots in correct order
 
-1. Show dots pattern
-2. Hide dots pattern
-3. Play sound if user goes in correct order and hits dots
+
 
 REVISION: The game isn't fun or very possible if the user has to memorize the patterns on this screen.
 It's better if they can get a little help. So, here's the new alternative gameplay method:
@@ -130,12 +130,27 @@ void controls() // taken from Maze_Game
     if (ycoord > 0)
       ycoord = ycoord - 1;
   } 
+  
+  if (Button_A) // press A to turn on "hard" mode
+  {
+    HardMode = true;
+    EasyMode = false;
+  }
+  
+  if (Button_B) // press A to turn on "easy" mode
+  {
+    EasyMode = true;
+    HardMode = false;
+  }
 
 }
 
 void core()
 {
-if (xcoord == 4)
+  
+if (EasyMode == false)  
+{
+  if (xcoord == 4)
   {
     if (ycoord == 3) // show dots if on origin dot
     {  
@@ -145,6 +160,38 @@ if (xcoord == 4)
       DrawPx(PointArray[3].x,PointArray[3].y,Violet);
     }
   }
+}
+
+if (EasyMode == true)  
+{
+  DrawPx(PointArray[0].x,PointArray[0].y,Yellow);
+  DrawPx(PointArray[1].x,PointArray[1].y,Green);
+  DrawPx(PointArray[2].x,PointArray[2].y,Red);
+  DrawPx(PointArray[3].x,PointArray[3].y,Violet);
+}  
+
+if (HardMode == true)  
+{
+  if (xcoord == 4)
+  {
+    if (ycoord == 3) // show dots if on origin dot
+    {  
+      DrawPx(PointArray[0].x,PointArray[0].y,Yellow);
+      DrawPx(PointArray[1].x,PointArray[1].y,Green);
+      DrawPx(PointArray[2].x,PointArray[2].y,Red);
+      DrawPx(PointArray[3].x,PointArray[3].y,Violet);
+    }
+  }
+} 
+
+if (HardMode == false)  
+{
+  DrawPx(PointArray[0].x,PointArray[0].y,Yellow);
+  DrawPx(PointArray[1].x,PointArray[1].y,Green);
+  DrawPx(PointArray[2].x,PointArray[2].y,Red);
+  DrawPx(PointArray[3].x,PointArray[3].y,Violet);
+} 
+    
     
   if (xcoord == PointArray[0].x) // checks if cursor hit first dot
   {
